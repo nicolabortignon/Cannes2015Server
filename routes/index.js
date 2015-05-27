@@ -1,16 +1,14 @@
-var models  = require('../models');
+var models = require('../models');
 var express = require('express');
-var router  = express.Router();
+var router = express.Router();
 
 router.get('/', function(req, res) {
-  models.User.findAll({
-    include: [ models.Task ]
-  }).then(function(users) {
-    res.render('index', {
-      title: 'Express',
-      users: users
+    models.Artwork.findAll({
+        include: models.City
+    }).then(function(artworks) {
+        res.send(artworks);
+
     });
-  });
 });
 
 module.exports = router;
