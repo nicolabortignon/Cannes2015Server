@@ -2,33 +2,58 @@ var models = require('../models');
 var express = require('express');
 var router = express.Router();
 
-router.post('/create', function(req, res) {
-    models.User.create({
-        username: req.param('username')
-    }).then(function() {
-        res.redirect('/');
-    });
-});
+console.log("ROUTE ARTWORKS INITIALIZED ------")
 
-router.get('/artworks/:id', function(req, res) {
+
+router.get('/artwork/:id', function(req, res) {
     models.Artwork.find({
         where: {
             id: req.param('id')
         }
     }).then(function(artwork) {
-
+        res.send(artwork)
     });
 });
 
-router.get('/galleries/:id', function(req, res) {
+router.get('/galleries/:idCity', function(req, res) {
+
+    console.log(models)
     models.Artwork.findAll({
         where: {
-            CityId: req.param('id')
+            CityId: req.param('idCity')
         }
-    }).then(function(artwork) {
-
+    }).then(function(artworks) {
+        res.send(artworks)
     });
 });
+router.get('/galleries/:idCity/:idProfile', function(req, res) {
+    models.Profile.find({
+        where: {
+            id: idProfile
+        }
+    }).then(function(profile) {
+        profile.getArworks({
+            where: {
+                CityId: req.param('idCity')
+            }
+        }).then(function(artworks) {
+            res.send(artworks)
+        });
+    })
+
+});
+
+router.get('/top/:positions', function(req, res) {
+    models.Artwork.findAll({
+        order: 'likes DESC',
+        limit: req.param('positions')
+
+    }).then(function(artworks) {
+        res.send(artworks)
+    });
+});
+
+
 
 
 
