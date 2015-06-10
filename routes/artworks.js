@@ -26,7 +26,7 @@ router.get('/galleries/:id', function(req, res) {
             CityId: req.param('id')
         }
     }).then(function(artwork) {
-
+        res.send(artwork)
     });
 });
 
