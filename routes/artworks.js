@@ -20,14 +20,35 @@ router.get('/artworks/:id', function(req, res) {
     });
 });
 
-router.get('/galleries/:id', function(req, res) {
+router.get('/galleries/:cityId', function(req, res) {
     models.Artwork.findAll({
         where: {
-            CityId: req.param('id')
+            CityId: req.param('cityId')
         }
     }).then(function(artwork) {
         res.send(artwork)
     });
+});
+
+router.get('/galleries/:cityId/:profileId', function(req, res) {
+    console.log("GALLERY VIA PROFILE")
+
+
+    models.Artwork.findAll({
+        where: {
+            cityId: req.param('cityId')
+        },
+        include: [{
+            model: models.Profile,
+            where: {
+                id: req.param('profileId')
+            }
+        }]
+    }).then(function(artworks) {
+        res.send(artworks)
+    });
+
+
 });
 
 
