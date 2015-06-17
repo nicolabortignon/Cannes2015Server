@@ -24,9 +24,6 @@ Object.keys(db).forEach(function(modelName) {
     }
 });
 
-console.log("-----")
-console.log(db['Profile'])
-console.log("-----")
 
 
 db.sequelize = sequelize;
