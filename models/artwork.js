@@ -3,6 +3,7 @@
 module.exports = function(sequelize, DataTypes) {
     var Artwork = sequelize.define("Artwork", {
         imageURL: DataTypes.STRING,
+        shortURL: DataTypes.STRING,
         qrCodeURL: DataTypes.STRING,
         likes: DataTypes.INTEGER,
         facebookShares: DataTypes.INTEGER,
