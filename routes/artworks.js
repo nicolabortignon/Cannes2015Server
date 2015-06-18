@@ -10,7 +10,7 @@ router.post('/create', function(req, res) {
     });
 });
 
-router.get('/artworks/:id', function(req, res) {
+router.get('/artwork/:id', function(req, res) {
     models.Artwork.find({
         where: {
             id: req.param('id')
