@@ -16,7 +16,7 @@ router.get('/artworks/:id', function(req, res) {
             id: req.param('id')
         }
     }).then(function(artwork) {
-
+        res.send(artwork)
     });
 });
 
