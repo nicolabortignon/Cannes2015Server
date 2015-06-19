@@ -7,6 +7,7 @@ module.exports = function(sequelize, DataTypes) {
         qrCodeURL: DataTypes.STRING,
         likes: DataTypes.INTEGER,
         facebookShares: DataTypes.INTEGER,
+        googlePlusShares: DataTypes.INTEGER,
         twitterShares: DataTypes.INTEGER,
         visits: DataTypes.INTEGER,
         width: DataTypes.INTEGER,
@@ -15,7 +16,6 @@ module.exports = function(sequelize, DataTypes) {
         classMethods: {
             associate: function(models) {
                 Artwork.belongsTo(models.City);
-
             }
         }
     });

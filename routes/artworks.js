@@ -33,6 +33,11 @@ router.get('/galleries/:cityId', function(req, res) {
     });
 });
 
+
+
+
+
+
 router.get('/galleries/:cityId/:profileId', function(req, res) {
     console.log("GALLERY VIA PROFILE")
 
@@ -89,6 +94,61 @@ router.get('/:user_id/tasks/:task_id/destroy', function(req, res) {
                 });
             });
         });
+    });
+});
+
+
+/* SHARE COUNTER */
+
+
+// artworks/updateShareCounter/facebook/0001
+
+router.get('/updateShareCounter/facebook/:artworkId', function(req, res) {
+    models.Artwork.find({
+        where: {
+            id: req.param('artworkId')
+        }
+    }).then(function(artwork) {
+
+        if (artwork) { // if the record exists in the db
+            artwork.updateAttributes({
+                facebookShares: artwork.facebookShares + 1
+            }).then(function(artwork) {
+                res.send(artwork)
+            });
+        }
+    });
+});
+router.get('/updateShareCounter/twitter/:artworkId', function(req, res) {
+    models.Artwork.find({
+        where: {
+            id: req.param('artworkId')
+        }
+    }).then(function(artwork) {
+
+        if (artwork) { // if the record exists in the db
+            artwork.updateAttributes({
+                twitterShares: artwork.twitterShares + 1
+            }).then(function(artwork) {
+                res.send(artwork)
+            });
+        }
+    });
+});
+router.get('/updateShareCounter/googleplus/:artworkId', function(req, res) {
+    models.Artwork.find({
+        where: {
+            id: req.param('artworkId')
+        }
+    }).then(function(artwork) {
+
+        if (artwork) { // if the record exists in the db
+            artwork.updateAttributes({
+                googlePlusShares: artwork.googlePlusShares + 1
+            }).then(function(artwork) {
+                res.send(artwork)
+            });
+        }
     });
 });
 
