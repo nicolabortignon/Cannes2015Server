@@ -2,7 +2,7 @@
 
 module.exports = function(sequelize, DataTypes) {
     var Visit = sequelize.define("Visit", {
-
+        length: DataTypes.INTEGER
     }, {
         classMethods: {
             associate: function(models) {

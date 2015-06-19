@@ -125,7 +125,7 @@ router.get('/visits/:artworkId', function(req, res) {
 });
 
 
-router.get('visits/close/:id', function(req, res) {
+router.get('/visits/close/:id', function(req, res) {
     models.Visit.find({
         where: {
             id: req.param('id')
@@ -135,7 +135,7 @@ router.get('visits/close/:id', function(req, res) {
         if (visit) { // if the record exists in the db
             visit.updateAttributes({
 
-            }).success(function() {
+            }).then(function() {
                 res.send()
             });
         }
