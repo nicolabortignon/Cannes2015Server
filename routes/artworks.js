@@ -5,6 +5,7 @@ var router = express.Router();
 
 models.Artwork.belongsToMany(models.Profile)
 models.Profile.belongsToMany(models.Artwork)
+models.Visit.belongsTo(models.Artwork);
 router.post('/create', function(req, res) {
     models.User.create({
         username: req.param('username')
@@ -111,9 +112,22 @@ router.get('/visits/:artworkId', function(req, res) {
             artwork.updateAttributes({
                 visits: artwork.visits + 1
             }).then(function(artwork) {
+
+                models.Visit.create({
+                    ArtworkId: artwork.id
+                }).then(function(task) {
+                    res.send(artwork)
+                })
+
+
+
+
                 res.send(artwork)
             });
         }
+
+
+
     });
 });
 router.get('/likes/:artworkId', function(req, res) {
