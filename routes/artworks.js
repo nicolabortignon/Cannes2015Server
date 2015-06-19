@@ -2,6 +2,9 @@ var models = require('../models');
 var express = require('express');
 var router = express.Router();
 
+
+models.Artwork.belongsToMany(models.Profile)
+models.Profile.belongsToMany(models.Artwork)
 router.post('/create', function(req, res) {
     models.User.create({
         username: req.param('username')
