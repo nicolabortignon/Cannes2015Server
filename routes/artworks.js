@@ -118,16 +118,27 @@ router.get('/visits/:artworkId', function(req, res) {
                 }).then(function(task) {
                     res.send(artwork)
                 })
-
-
-
-
                 res.send(artwork)
             });
         }
+    });
+});
 
 
+router.get('artworks/visits/close/:id', function(req, res) {
+    models.Visit.find({
+        where: {
+            id: req.param('id')
+        }
+    }).then(function(visit) {
 
+        if (visit) { // if the record exists in the db
+            visit.updateAttributes({
+
+            }).success(function() {
+                res.send()
+            });
+        }
     });
 });
 router.get('/likes/:artworkId', function(req, res) {
