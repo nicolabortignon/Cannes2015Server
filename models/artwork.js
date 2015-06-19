@@ -15,10 +15,6 @@ module.exports = function(sequelize, DataTypes) {
         classMethods: {
             associate: function(models) {
                 Artwork.belongsTo(models.City);
-                Artwork.hasMany(models.Profile, {
-                    through: 'ArtworksProfiles',
-                    foreignKey: 'ArtworkId'
-                });
 
             }
         }

@@ -6,10 +6,7 @@ module.exports = function(sequelize, DataTypes) {
     }, {
         classMethods: {
             associate: function(models) {
-                Profile.hasMany(models.Artwork, {
-                    through: 'ArtworksProfiles',
-                    foreignKey: 'ProfileId'
-                });
+
 
             }
         }
