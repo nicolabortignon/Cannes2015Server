@@ -115,10 +115,9 @@ router.get('/visits/:artworkId', function(req, res) {
 
                 models.Visit.create({
                     ArtworkId: artwork.id
-                }).then(function(task) {
-                    res.send(artwork)
+                }).then(function(visit) {
+                    res.send(visit)
                 })
-                res.send(artwork)
             });
         }
     });
