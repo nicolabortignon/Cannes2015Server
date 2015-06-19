@@ -100,6 +100,24 @@ router.get('/:user_id/tasks/:task_id/destroy', function(req, res) {
 
 /* SHARE COUNTER */
 
+router.get('/likes/:artworkId', function(req, res) {
+    models.Artwork.find({
+        where: {
+            id: req.param('artworkId')
+        }
+    }).then(function(artwork) {
+
+        if (artwork) { // if the record exists in the db
+            artwork.updateAttributes({
+                likes: artwork.likes + 1
+            }).then(function(artwork) {
+                res.send(artwork)
+            });
+        }
+    });
+});
+
+
 
 // artworks/updateShareCounter/facebook/0001
 
