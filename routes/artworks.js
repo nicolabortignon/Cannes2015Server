@@ -125,7 +125,7 @@ router.get('/visits/:artworkId', function(req, res) {
 });
 
 
-router.get('artworks/visits/close/:id', function(req, res) {
+router.get('visits/close/:id', function(req, res) {
     models.Visit.find({
         where: {
             id: req.param('id')
