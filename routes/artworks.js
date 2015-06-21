@@ -42,8 +42,6 @@ router.get('/galleries/:cityId', function(req, res) {
 
 router.get('/galleries/:cityId/:profileId', function(req, res) {
     console.log("GALLERY VIA PROFILE")
-
-
     models.Artwork.findAll({
         where: {
             cityId: req.param('cityId')
@@ -58,15 +56,10 @@ router.get('/galleries/:cityId/:profileId', function(req, res) {
         models.Experience.create({
             ProfileId: req.param('profileId'),
             CityId: req.param('cityId')
-        }).then(function(visit) {
-            res.send(visit)
+        }).then(function(experience) {
+            res.send(artworks)
         })
-
-
-        res.send(artworks)
     });
-
-
 });
 
 
@@ -181,10 +174,7 @@ router.get('/visits/inTheLastSecond/:totatSecond', function(req, res) {
 router.get('/likes/inTheLastSecond/:totatSecond', function(req, res) {
     var MS_PER_SECOND = 1000;
     var durationInSecond = req.param('totatSecond');
-
-
     var myStartDate = new Date(new Date() - durationInSecond * MS_PER_SECOND);
-
     models.CountLikes.findAndCountAll({
         where: {
             createdAt: {
@@ -196,6 +186,34 @@ router.get('/likes/inTheLastSecond/:totatSecond', function(req, res) {
             "count": visit.count
         }
         res.send(obj)
+
+    });
+});
+
+
+
+router.get('/experiences/byProfile/', function(req, res) {
+    models.Experience.findAndCountAll({
+        group: ['ProfileId'],
+        include: [{
+            model: models.Profile,
+        }]
+    }).then(function(experiences) {
+
+        res.send(experiences)
+
+    });
+});
+
+router.get('/experiences/byCity/', function(req, res) {
+    models.Experience.findAndCountAll({
+        group: ['CityId'],
+        include: [{
+            model: models.Profile,
+        }]
+    }).then(function(experiences) {
+
+        res.send(experiences)
 
     });
 });
