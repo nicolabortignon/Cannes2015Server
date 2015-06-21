@@ -214,7 +214,7 @@ router.get('/likes/:artworkId', function(req, res) {
                 })
 
 
-                res.send(artwork)
+
             });
         }
     });
