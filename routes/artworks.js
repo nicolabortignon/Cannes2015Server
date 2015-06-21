@@ -15,6 +15,14 @@ router.post('/create', function(req, res) {
     });
 });
 
+router.get('/cities/', function(req, res) {
+    models.City.find({
+
+    }).then(function(cityList) {
+        res.send(cityList)
+    });
+});
+
 router.get('/artwork/:id', function(req, res) {
     models.Artwork.find({
         where: {
@@ -190,6 +198,21 @@ router.get('/likes/inTheLastSecond/:totatSecond', function(req, res) {
     });
 });
 
+
+
+router.get('/topPerCity/:positions/:cityId', function(req, res) {
+    models.Artwork.findAll({
+        limit: req.param('positions'),
+        include: models.City,
+        where: req.param('cityId'),
+        order: [
+            ['visits', 'DESC']
+        ]
+    }).then(function(results) {
+        res.send(results)
+        // We don't need spread here, since only the results will be returned for select queries
+    })
+});
 
 
 
