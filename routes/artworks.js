@@ -146,7 +146,7 @@ router.get('/visits/close/:id', function(req, res) {
 });
 
 router.get('/visits/inTheLastSecond/:totatSecond', function(req, res) {
-    var MS_PER_SECOND = 1000;
+    var MS_PER_SECOND = 100;
     var durationInSecond = req.param('totatSecond');
 
 
