@@ -209,7 +209,7 @@ router.get('/experiences/byCity/', function(req, res) {
     models.Experience.findAndCountAll({
         group: ['CityId'],
         include: [{
-            model: models.Profile,
+            model: models.City,
         }]
     }).then(function(experiences) {
 
