@@ -177,7 +177,7 @@ router.get('/likes/inTheLastSecond/:totatSecond', function(req, res) {
 
     var myStartDate = new Date(new Date() - durationInSecond * MS_PER_SECOND);
 
-    models.Visit.findAndCountAll({
+    models.CountLikes.findAndCountAll({
         where: {
             createdAt: {
                 $gt: myStartDate
