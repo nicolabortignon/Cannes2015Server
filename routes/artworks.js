@@ -169,6 +169,31 @@ router.get('/visits/inTheLastSecond/:totatSecond', function(req, res) {
 
 
 
+router.get('/likes/inTheLastSecond/:totatSecond', function(req, res) {
+    var MS_PER_SECOND = 1000;
+    var durationInSecond = req.param('totatSecond');
+
+
+    var myStartDate = new Date(new Date() - durationInSecond * MS_PER_SECOND);
+
+    models.Visit.findAndCountAll({
+        where: {
+            createdAt: {
+                $gt: myStartDate
+            }
+        }
+    }).then(function(visit) {
+        var obj = {
+            "count": visit.count
+        }
+        res.send(obj)
+
+    });
+});
+
+
+
+
 
 router.get('/likes/:artworkId', function(req, res) {
     models.Artwork.find({
