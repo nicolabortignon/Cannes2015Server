@@ -204,7 +204,9 @@ router.get('/topPerCity/:positions/:cityId', function(req, res) {
     models.Artwork.findAll({
         limit: req.param('positions'),
         include: models.City,
-        where: req.param('cityId'),
+        where: {
+            cityId: req.param('cityId')
+        },
         order: [
             ['visits', 'DESC']
         ]
