@@ -55,6 +55,14 @@ router.get('/galleries/:cityId/:profileId', function(req, res) {
             }
         }]
     }).then(function(artworks) {
+        models.Experience.create({
+            ProfileId: req.param('profileId'),
+            CityId: req.param('cityId')
+        }).then(function(visit) {
+            res.send(visit)
+        })
+
+
         res.send(artworks)
     });
 
