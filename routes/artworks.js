@@ -16,7 +16,7 @@ router.post('/create', function(req, res) {
 });
 
 router.get('/cities/', function(req, res) {
-    models.City.find({
+    models.City.findAll({
 
     }).then(function(cityList) {
         res.send(cityList)
