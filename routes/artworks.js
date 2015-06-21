@@ -192,6 +192,17 @@ router.get('/likes/inTheLastSecond/:totatSecond', function(req, res) {
 
 
 
+
+router.get('/social/countSocial/', function(req, res) {
+    models.sequelize.query("SELECT   sum(twitterShares) Twitter, sum(facebookShares) Facebook, sum(googlePlusShares) GooglePlus FROM Artworks  ", {
+        type: models.sequelize.QueryTypes.SELECT
+    }).then(function(users) {
+        res.send(users)
+        // We don't need spread here, since only the results will be returned for select queries
+    })
+});
+
+
 router.get('/experiences/byProfile/', function(req, res) {
     models.Experience.findAndCountAll({
         group: ['ProfileId'],
