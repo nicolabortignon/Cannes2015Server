@@ -134,12 +134,42 @@ router.get('/visits/close/:id', function(req, res) {
         if (visit) { // if the record exists in the db
             visit.updateAttributes({
 
-            }).then(function() {
-                res.send()
+            }).then(function(visit2) {
+                visit2.updateAttributes({
+                    length: visit2.updatedAt - visit2.createdAt
+                }).then(function() {
+                    res.send()
+                });
             });
         }
     });
 });
+
+router.get('/visits/inTheLastSecond/:totatSecond', function(req, res) {
+    var MS_PER_SECOND = 1000;
+    var durationInSecond = req.param('totatSecond');
+
+
+    var myStartDate = new Date(new Date() - durationInSecond * MS_PER_SECOND);
+
+    models.Visit.findAndCountAll({
+        where: {
+            createdAt: {
+                $gt: myStartDate
+            }
+        }
+    }).then(function(visit) {
+        var obj = {
+            "count": visit.count
+        }
+        res.send(obj)
+
+    });
+});
+
+
+
+
 router.get('/likes/:artworkId', function(req, res) {
     models.Artwork.find({
         where: {
