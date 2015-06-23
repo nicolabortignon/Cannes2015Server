@@ -198,6 +198,19 @@ router.get('/likes/inTheLastSecond/:totatSecond', function(req, res) {
     });
 });
 
+router.get('/topOverAll/:positions', function(req, res) {
+    models.Artwork.findAll({
+        limit: req.param('positions'),
+        include: models.City,
+
+        order: [
+            ['visits', 'DESC']
+        ]
+    }).then(function(results) {
+        res.send(results)
+        // We don't need spread here, since only the results will be returned for select queries
+    })
+});
 
 
 router.get('/topPerCity/:positions/:cityId', function(req, res) {
