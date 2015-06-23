@@ -177,6 +177,46 @@ router.get('/visits/inTheLastSecond/:totatSecond', function(req, res) {
     });
 });
 
+router.get('/totalExperiences', function(req, res) {
+
+    models.Experience.findAndCountAll({
+
+    }).then(function(visit) {
+        var obj = {
+            "count": visit.count
+        }
+        res.send(obj)
+
+    });
+});
+
+router.get('/totalVisits', function(req, res) {
+
+    models.Visit.findAndCountAll({
+
+    }).then(function(visit) {
+        var obj = {
+            "count": visit.count
+        }
+        res.send(obj)
+
+    });
+});
+
+router.get('/totalLikes', function(req, res) {
+
+
+    models.sequelize.query("SELECT sum(twitterShares) twitter, sum(facebookShares) facebook,sum(likes) likes, sum(googlePlusShares) googlePlus FROM Artworks", {
+        type: models.sequelize.QueryTypes.SELECT
+    }).then(function(rows) {
+
+        res.send(rows)
+
+    });
+});
+
+
+
 
 
 router.get('/likes/inTheLastSecond/:totatSecond', function(req, res) {
@@ -261,7 +301,7 @@ router.get('/CityPreferencePerProfile/', function(req, res) {
 
 
 router.get('/social/countSocial/', function(req, res) {
-    models.sequelize.query("SELECT   sum(twitterShares) Twitter, sum(facebookShares) Facebook, sum(googlePlusShares) GooglePlus FROM Artworks  ", {
+    models.sequelize.query("SELECT sum(twitterShares) Twitter, sum(facebookShares) Facebook, sum(googlePlusShares) GooglePlus FROM Artworks  ", {
         type: models.sequelize.QueryTypes.SELECT
     }).then(function(users) {
         res.send(users)
