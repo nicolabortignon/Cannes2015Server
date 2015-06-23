@@ -215,6 +215,19 @@ router.get('/totalLikes', function(req, res) {
     });
 });
 
+router.get('/randomPicture', function(req, res) {
+
+
+    models.sequelize.query("SELECT * FROM Artworks INNER JOIN Cities ON CityId = Cities.id ORDER BY RAND() LIMIT 0, 1;", {
+        type: models.sequelize.QueryTypes.SELECT
+    }).then(function(rows) {
+
+        res.send(rows)
+
+    });
+});
+
+
 
 
 
