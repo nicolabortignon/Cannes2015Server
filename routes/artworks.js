@@ -229,6 +229,20 @@ router.get('/randomPicture', function(req, res) {
 
 
 
+router.get('/last24Visits', function(req, res) {
+
+
+    models.sequelize.query("SELECT HOUR(createdAt) AS h, COUNT( * ) count FROM Visits WHERE createdAt > DATE_SUB(NOW(), INTERVAL 24 HOUR) GROUP BY h;", {
+        type: models.sequelize.QueryTypes.SELECT
+    }).then(function(rows) {
+
+        res.send(rows)
+
+    });
+});
+
+
+
 
 
 
