@@ -218,6 +218,35 @@ router.get('/topPerCity/:positions/:cityId', function(req, res) {
 
 
 
+router.get('/CityPreferencePerProfile/', function(req, res) {
+    models.sequelize.query("SELECT Count(*) as Count,ProfileId,CityId FROM Experiences Group By `ProfileId`, CityId", {
+        type: models.sequelize.QueryTypes.SELECT
+    }).then(function(rows) {
+        var results = []
+
+        for (var i = 0; i < 6; i++) {
+            results.push({
+                profileId: i,
+                city: [0, 0, 0, 0, 0, 0]
+            })
+        }
+        for (var i = 0; i < rows.length; i++) {
+            for (var j = 0; j < 6; j++) {
+                if (results[j].profileId == rows[i].ProfileId) {
+                    //trovato il profilo giusto
+                    results[j].city[rows[i].CityId - 1] = rows[i].Count;
+
+                }
+            }
+        }
+        console.log(rows)
+        res.send(results)
+        // We don't need spread here, since only the results will be returned for select queries
+    })
+});
+
+
+
 router.get('/social/countSocial/', function(req, res) {
     models.sequelize.query("SELECT   sum(twitterShares) Twitter, sum(facebookShares) Facebook, sum(googlePlusShares) GooglePlus FROM Artworks  ", {
         type: models.sequelize.QueryTypes.SELECT
